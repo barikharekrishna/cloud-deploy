@@ -1,11 +1,35 @@
+substitutions:
+  _REGION: us-central1
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest', '.']
-    args: ['build', '-t', 'gcr.io/teraform-project-401705/image:latest', '.']
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest']
-    args: [ 'push', 'gcr.io/teraform-project-401705/image:latest']
-images:
-  - us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest
-images:
-  - gcr.io/teraform-project-401705/image:latest
+- name: 'gcr.io/k8s-skaffold/skaffold'
+  entrypoint: 'sh'
+  args:
+  - -xe
+  - -c
+  - |
+    # Build and push images
+    skaffold build --file-output=/workspace/artifacts.json \
+                   --default-repo=gcr.io/teraform-project-401705/image@sha256:2b8afd21d71332e89ee56fc2bed329bb1688615607342cd2ab9d23ac7838990e
+                   --push=true
+- name: 'google/cloud-sdk:latest'
+  entrypoint: 'sh'
+  args:
+  - -xe
+  - -c
+  - |
+    gcloud config set deploy/region ${_REGION}
+    sed -i s/PROJECT_ID/$PROJECT_ID/g deploy/*
+    gcloud deploy apply --file deploy/pipeline.yaml  --region=us-central1 --project=$PROJECT_ID
+    gcloud deploy apply --file deploy/dev.yaml
+    gcloud deploy apply --file deploy/staging.yaml
+    gcloud deploy apply --file deploy/prod.yaml
+    gcloud deploy releases create rel-${SHORT_SHA} \
+                        --project=$PROJECT_ID \
+                        --region=us-central1 \
+                        --delivery-pipeline= helm-cicd-pipeline \
+                        --build-artifacts /workspace/artifacts.json \
+                        --annotations "commit_ui=https://source.cloud.google.com/$PROJECT_ID/helm-cicd-demo/+/$COMMIT_SHA"
+artifacts:
+  objects:
+    location: 'gs://$PROJECT_ID-gceme-artifacts/'
+    paths:
