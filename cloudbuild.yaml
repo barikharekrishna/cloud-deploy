@@ -25,7 +25,7 @@ steps:
     gcloud deploy releases create rel-${SHORT_SHA} \
                         --project=$PROJECT_ID \
                         --region=us-central1 \
-                        --delivery-pipeline= helm-cicd-pipeline \
+                        --delivery-pipeline=helm-cicd-pipeline \
                         --build-artifacts /workspace/artifacts.json \
                         --annotations "commit_ui=https://source.cloud.google.com/$PROJECT_ID/helm-cicd-demo/+/$COMMIT_SHA"
 artifacts:
