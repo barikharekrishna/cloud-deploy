@@ -1,7 +1,11 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/teraform-project-401705/my-app', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest', '.']
+    args: ['build', '-t', 'gcr.io/teraform-project-401705/image:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/teraform-project-401705/my-app']
+    args: ['push', 'us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest']
+    args: [ 'push', 'gcr.io/teraform-project-401705/image:latest']
 images:
-  - 'gcr.io/teraform-project-401705/my-app'
+  - us-central1-docker.pkg.dev/teraform-project-401705/cloud-helm-deploy/image:latest
+images:
+  - gcr.io/teraform-project-401705/image:latest
