@@ -21,7 +21,6 @@ steps:
     sed -i s/PROJECT_ID/$PROJECT_ID/g deploy/*
     gcloud deploy apply --file deploy/pipeline.yaml  --region=us-central1 --project=$PROJECT_ID
     gcloud deploy apply --file deploy/dev.yaml
-    gcloud deploy apply --file deploy/staging.yaml
     gcloud deploy apply --file deploy/prod.yaml
     gcloud deploy releases create rel-${SHORT_SHA} \
                         --project=$PROJECT_ID \
