@@ -9,7 +9,7 @@ steps:
   - |
     # Build and push images
     skaffold build --file-output=/workspace/artifacts.json \
-                   --default-repo=gcr.io/teraform-project-401705/image@sha256:2b8afd21d71332e89ee56fc2bed329bb1688615607342cd2ab9d23ac7838990e
+                   --default-repo=${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-helm-deploy/nodejs:latest \
                    --push=true
 - name: 'google/cloud-sdk:latest'
   entrypoint: 'sh'
