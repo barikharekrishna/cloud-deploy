@@ -33,3 +33,4 @@ artifacts:
   objects:
     location: 'gs://$PROJECT_ID-gceme-artifacts/'
     paths:
+    - '/workspace/artifacts.json'
