@@ -13,4 +13,4 @@ You can then run the following command from the root folder of the project
     --repo=<repository-name> \
     --branch-pattern="main" \
 
-Please make sure your repository is already connected with your GCP project..
+Please make sure your repository is already connected with your GCP project.
