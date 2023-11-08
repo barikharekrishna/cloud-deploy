@@ -1,7 +1,7 @@
 replicaCount: 1
 workloadName: prod-application
 image:
-  repository: us-central1-docker.pkg.dev/utopian-bonito-347816/helm-cicd-repo/helm-cicd-image
+  repository: gcr.io/teraform-project-401705/image@sha256:2b8afd21d71332e89ee56fc2bed329bb1688615607342cd2ab9d23ac7838990e
   tag: latest
   pullPolicy: IfNotPresent
 monitoring: false
