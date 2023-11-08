@@ -6,4 +6,4 @@ metadata:
   labels: {}
 description: dev
 gke:
-  cluster: projects/<project-id>/locations/<zone>/clusters/helm-cd-testing-dev
+  cluster: projects/teraform-project-401705/locations/us-central1-c/clusters/cluster-1
