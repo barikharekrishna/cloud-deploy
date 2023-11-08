@@ -1,9 +1,9 @@
 replicaCount: 1
 workloadName: dev-application
 image:
-  repository: gcr.io/teraform-project-401705/image@sha256:2b8afd21d71332e89ee56fc2bed329bb1688615607342cd2ab9d23ac7838990e
+  repository: gcr.io/teraform-project-401705/image
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 monitoring: false
 resources:
   limits:
