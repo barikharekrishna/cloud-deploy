@@ -9,7 +9,7 @@ steps:
   - |
     # Build and push images
     skaffold build --file-output=/workspace/artifacts.json \
-                   --default-repo=${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-helm-deploy/nodejs:latest \
+                   --default-repo=${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-helm-deploy \
                    --push=true
 - name: 'google/cloud-sdk:latest'
   entrypoint: 'sh'
